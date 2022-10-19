@@ -4,18 +4,44 @@ import {
   AuthenticationDetails,
   CognitoUser,
   CognitoUserPool,
+  CognitoUserAttribute,
 } from 'amazon-cognito-identity-js';
 
 @Injectable()
 export class AuthService {
   private userPool: CognitoUserPool;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  private sessionUserAttributes: {};
   constructor(
-    @Inject('AuthConfig')
+    // @Inject('AuthConfig')
     private readonly authConfig: AuthConfig,
   ) {
     this.userPool = new CognitoUserPool({
       UserPoolId: this.authConfig.userPoolId,
       ClientId: this.authConfig.clientId,
+    });
+  }
+
+  registerUser(registerRequest: {
+    name: string;
+    email: string;
+    password: string;
+  }) {
+    const { name, email, password } = registerRequest;
+    return new Promise((resolve, reject) => {
+      return this.userPool.signUp(
+        name,
+        password,
+        [new CognitoUserAttribute({ Name: 'email', Value: email })],
+        null,
+        (err, result) => {
+          if (!result) {
+            reject(err);
+          } else {
+            resolve(result.user);
+          }
+        },
+      );
     });
   }
 
