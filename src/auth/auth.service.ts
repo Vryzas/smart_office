@@ -1,5 +1,5 @@
 import { AuthConfig } from './auth.config';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   AuthenticationDetails,
   CognitoUser,
@@ -12,10 +12,7 @@ export class AuthService {
   private userPool: CognitoUserPool;
   // eslint-disable-next-line @typescript-eslint/ban-types
   private sessionUserAttributes: {};
-  constructor(
-    // @Inject('AuthConfig')
-    private readonly authConfig: AuthConfig,
-  ) {
+  constructor(private readonly authConfig: AuthConfig) {
     this.userPool = new CognitoUserPool({
       UserPoolId: this.authConfig.userPoolId,
       ClientId: this.authConfig.clientId,

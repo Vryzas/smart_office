@@ -9,8 +9,14 @@ export class AuthController {
   async register(
     @Body() registerRequest: { name: string; password: string; email: string },
   ) {
-    console.log(await this.authService.registerUser(registerRequest));
-    return await this.authService.registerUser(registerRequest);
+    // console.log(await this.authService.registerUser(registerRequest));
+    // TODO: create session?!
+    try {
+      return await this.authService.registerUser(registerRequest);
+    } catch (e) {
+      console.log(e);
+      return e.code;
+    }
   }
 
   @Post('login')
@@ -18,7 +24,11 @@ export class AuthController {
     try {
       return await this.authService.authenticateUser(authenticateRequest);
     } catch (e) {
-      throw new BadRequestException(e.message);
+      return {
+        status: new BadRequestException().getStatus(),
+        message: e.message,
+      };
+      // throw new BadRequestException();
     }
   }
 }
