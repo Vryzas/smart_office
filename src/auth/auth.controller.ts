@@ -9,13 +9,15 @@ export class AuthController {
   async register(
     @Body() registerRequest: { name: string; password: string; email: string },
   ) {
-    // console.log(await this.authService.registerUser(registerRequest));
     // TODO: create session?!
     try {
-      return await this.authService.registerUser(registerRequest);
+      const a = await this.authService.registerUser(registerRequest);
+      console.log(a);
+      return a;
     } catch (e) {
+      // TODO: handle errors/exceptions
       console.log(e);
-      return e.code;
+      return { status: new BadRequestException().getStatus(), message: e };
     }
   }
 

@@ -35,6 +35,7 @@ export class AuthService {
           if (!result) {
             reject(err);
           } else {
+            console.log(result);
             resolve(result.user);
           }
         },
@@ -55,11 +56,12 @@ export class AuthService {
     };
 
     const newUser = new CognitoUser(userData);
-
+    // console.log(authenticationDetails);
     return new Promise((resolve, reject) => {
       return newUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           resolve(result);
+          console.log(result);
         },
         onFailure: (err) => {
           reject(err);
