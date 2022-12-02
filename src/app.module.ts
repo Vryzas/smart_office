@@ -11,10 +11,11 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // MongooseModule.forRoot(
-    //   'mongodb://localhost:27017',
-    //   // `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@127.0.0.1:27017/${process.env.MONGO_DB}`,
-    // ),
+    MongooseModule.forRoot(
+      // address should contain the mongo database container name for the network to identify it
+      'mongodb://localhost:27017',
+      // `mongodb://mongoadmin:pass@mongodb:27017?authsource=admin`,
+    ),
   ],
   controllers: [AppController],
   providers: [AppService],
