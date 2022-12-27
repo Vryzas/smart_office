@@ -15,7 +15,13 @@ export class ClickController {
   @Get()
   async showClicks() {
     const list = await this.clickService.getClicks();
-    console.log(list);
+    // console.log(list);
+    return list;
+  }
+
+  @Get('pie')
+  async showClicksGroup() {
+    const list = await this.clickService.showClicksGroup();
     return list;
   }
 }

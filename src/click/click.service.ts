@@ -15,4 +15,11 @@ export class ClickService {
   async getClicks(): Promise<Click[]> {
     return this.clickModel.find().exec();
   }
+
+  async showClicksGroup(): Promise<Click[]> {
+    // console.log(
+    //   await this.clickModel.aggregate([{ $group: { _id: '$name', totalQuantity: { $sum: '$nrClicks' } } }]).exec(),
+    // );
+    return await this.clickModel.aggregate([{ $group: { _id: '$name', totalQuantity: { $sum: '$nrClicks' } } }]).exec();
+  }
 }
