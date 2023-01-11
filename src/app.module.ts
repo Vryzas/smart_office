@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ClickModule } from './click/click.module';
+import { ProducerModule } from './producer/producer.module';
+import { ConsumerModule } from './consumer.module.ts/consumer.module';
 
 @Module({
   imports: [
@@ -15,10 +17,11 @@ import { ClickModule } from './click/click.module';
     }),
     MongooseModule.forRoot(
       // address should contain the mongo database container name for the network to identify it
-      // 'mongodb://root:example@mongodb:27017',
-      `mongodb://mongoadmin:pass@mongodb:27017?authsource=admin`,
-      // 'mongodb://localhost:27017/test?readPreference=primary&ssl=false&directConnection=true',
+      'mongodb://mongoadmin:pass@localhost:27017?authsource=admin',
+      // `mongodb://mongoadmin:pass@mongodb:27017?authsource=admin`,
     ),
+    ProducerModule,
+    ConsumerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
