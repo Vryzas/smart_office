@@ -10,6 +10,9 @@ export class Data {
 
   @Prop()
   hum: number;
+
+  @Prop()
+  time: Date;
 }
 
 export const DataSchema = SchemaFactory.createForClass(Data);
