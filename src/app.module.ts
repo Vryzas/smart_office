@@ -6,7 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ClickModule } from './click/click.module';
 import { ProducerModule } from './producer/producer.module';
-import { ConsumerModule } from './consumer.module.ts/consumer.module';
+import { ConsumerModule } from './consumer/consumer.module';
 import { VideoController } from './vd.controller';
 import { MulterModule } from '@nestjs/platform-express';
 
