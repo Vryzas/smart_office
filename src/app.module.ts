@@ -7,10 +7,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ClickModule } from './click/click.module';
 import { ProducerModule } from './producer/producer.module';
 import { ConsumerModule } from './consumer.module.ts/consumer.module';
+import { VideoController } from './vd.controller';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
     AuthModule,
+    MulterModule.register({
+      dest: './uploads',
+      limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+    }),
     ClickModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -23,7 +29,7 @@ import { ConsumerModule } from './consumer.module.ts/consumer.module';
     ProducerModule,
     ConsumerModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, VideoController],
   providers: [AppService],
 })
 export class AppModule {}
